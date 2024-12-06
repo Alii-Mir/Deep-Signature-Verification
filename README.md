@@ -33,9 +33,9 @@ ___
 
 We utilized a **Contrastive Loss Function** in our Siamese network to effectively learn the similarity and dissimilarity between image pairs. The loss is defined as ($D_E$ = Euclidean distance):
 
-- For **genuine** pairs (label = 0), the loss is ${D_E}^2$.
+- For **genuine** pairs (label = 0), the loss = $`{D_E}^2`$.
 
-- For **forged** pairs (label = 1), the loss is (max(0, margin - $D_E$))².
+- For **forged** pairs (label = 1), the loss = $`(max(0,~margin - D_E))^2`$.
 
 Based on our experience, we decided to set margin to 0.5. This design ensures the network learns embeddings that bring similar pairs closer while pushing dissimilar pairs apart beyond the specified margin.
 
