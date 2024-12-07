@@ -7,7 +7,7 @@ Siamese Neural Networks are a type of deep learning architecture designed to com
 2. **Similarity Measurement**: The feature embeddings are compared using a distance metric, such as Euclidean distance.
 3. **Decision Threshold**: Based on the computed distance, a threshold determines whether the signatures are genuine (similar) or forged (dissimilar).
 
-![image](https://github.com/user-attachments/assets/f205a72c-20b0-4536-9c93-3ff17835ce3c)
+![image](https://github.com/user-attachments/assets/ccf9fb15-13b5-4e9a-a286-7181fafd57c8)
 
 
 ### Applications
