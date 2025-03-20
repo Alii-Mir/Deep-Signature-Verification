@@ -65,7 +65,7 @@ Training Hyper-parameters:
 
 
 ### Code Functions:
-"SiameseDataset" class is built to load the appropriate dataset. "SiameseNetwork" is our siamese CNN network.
+`SiameseDataset` class is built to load the appropriate dataset. `SiameseNetwork` is our siamese CNN network.
 
 ### Training:
 For training, we used Adam optimizer and an adaptive learning rate. It was run on GPUs using CUDA.
@@ -74,23 +74,54 @@ Here you can see the training losses during epochs:
 ![image](https://github.com/user-attachments/assets/32e871c6-40fb-4723-b471-46b3acdc03ab)
 
 ### Testing:
-We use the trained model and activate the `.eval()` mode. We build the test dataset and load it. Then using a favorite threshold for contrastive loss (we used 0.1), test our model. It means for each pair, if the loss is lower than the threshold it means original pair, and for upper than threshold value we predict forgery for the pair. This threshold is adaptive and can be changed. See some examples:
 
-![image](https://github.com/user-attachments/assets/f4796b97-0380-4538-8953-c4643e962f33)
+The balance between different performance metrics:
 
-- Predicted Eucledian Distance: 0.1126 
-- Contrastive Loss: 0.1501 
+![image](https://github.com/user-attachments/assets/ca5ecebb-9a91-440d-94ac-987531d4f840)
+
+Example:\
+Threshold = 0.5
+
+Accuracy: 0.71\
+Bal. Acc: 0.59
+
+Precision: 0.76\
+Recall (Sensitivity): 0.86\
+Specificity: 0.32
+
+F1 Score: 0.81
+
+Confusion Matrix:\
+FP = 1533, FN = 801\
+TP = 4911, TN = 734 <br />
+
+
+**ROC Curve**:
+![image](https://github.com/user-attachments/assets/9e4d6aaa-5334-4ab3-97f0-cd813c49971b)
+
+Model output probability distribution on test dataset:
+
+![image](https://github.com/user-attachments/assets/fa0fb12f-eed5-4ef7-a2b9-a9573b5fdde2)
+
+**Comparison**:
+![image](https://github.com/user-attachments/assets/fc0fc57f-4b6e-4ae8-84c8-b8c799804b34)
+
+
+**See some examples** (Probability Threshold = 0.50):
+
+![image](https://github.com/user-attachments/assets/302f0e2d-c892-4514-8e2c-9a1d556c1a05)
 - Actual Label: **Forged** 
 - Predicted: **Forged**
 
-![image](https://github.com/user-attachments/assets/b480b1ed-426c-45fb-b3cb-14b8f4704893)
+![image](https://github.com/user-attachments/assets/d1a4a5a6-7a23-4093-8e40-0505c71c08e7)
+- Actual Label: **Original** 
+- Predicted: **Forged**
 
-- Predicted Eucledian Distance: 0.1061 
-- Contrastive Loss: 0.0113 
+![image](https://github.com/user-attachments/assets/77b9c033-983d-4b56-8859-10620e7587da)
 - Actual Label: **Original** 
 - Predicted: **Original**
 
-
-
-
+![image](https://github.com/user-attachments/assets/52c16a0d-ef22-4067-84ec-2348529d44f2)
+- Actual Label: **Forged** 
+- Predicted: **Forged**
 
