@@ -1,4 +1,4 @@
-# Siamese Neural Network for Signature Verification Task
+# Siamese Neural Network for Signature Verification Task <img src="https://github.com/user-attachments/assets/9dd66a22-e8ed-47d3-b260-a17598c4b539" style="width:100px;"/>
 
 ## Introduction
 
@@ -28,42 +28,50 @@ We trained and evaluated the model using signature samples coming from the [ICDA
 
 To learn more about Siamese neural networks, please see [here ](https://medium.com/@rinkinag24/a-comprehensive-guide-to-siamese-neural-networks-3358658c0513).
 
-# Dataset:
+## Dataset:
 
 Please download the data from my Google Drive [here](https://drive.google.com/drive/folders/1EhgXun9FOcRl-KY43Y6Nw1Pkjij55qCa?usp=sharing). The data came from Kaggle, but it was poorly organized (There was leakage.) The dataset I have provided has addressed the issues. Pairs of forged-genuine and genuine-genuine are available in the csv files. After downloading the data, please place the folder next to the "siamese-net" folder.
 
 The figure below shows the structure of data.
-![data](https://github.com/user-attachments/assets/19572be9-c72f-4d18-bd9e-42765bc35bd1)
 
-The dataset includes:
-- Training set: 29,926 signature pairs (21,692 forged pairs). 52 persons from ICDAR and 119 persons from GPDS were randomly selected.
-- Testing set: 7,979 signature pairs (5,712 forged pairs). 12 persons from ICDAR and 31 persons from GPDS were used.
+<img src="https://github.com/user-attachments/assets/19572be9-c72f-4d18-bd9e-42765bc35bd1" style="width:700px;"/> <br />
 
 The dataset split follows an 80\% training and 20\% testing ratio.
 
-# Model:
+- Training set: 29,926 signature pairs (21,692 forged pairs). 52 persons from ICDAR and 119 from GPDS were randomly selected.
+- Testing set: 7,979 signature pairs (5,712 forged pairs). 12 persons from ICDAR and 31 persons from GPDS were used.
 
-### Loss for Siamese Network
 
-We utilized a **Contrastive Loss Function** in our Siamese network to effectively learn the similarity and dissimilarity between image pairs. The loss is defined as ($D_E$ = Euclidean distance):
+## Preprocessing
+- Conversion to grayscale
+- Resize to 105x105 pixels 
+- Contrast enhancement
+- Intensity matching (histogram matching)
+- Transformation into tensors for neural network
+![image](https://github.com/user-attachments/assets/625cfae6-102c-4f8b-9b5e-85302c1d58cb)
 
-- For **genuine** pairs (label = 0), the loss = $`{D_E}^2`$.
+## Network Configuration:
 
-- For **forged** pairs (label = 1), the loss = $`(max(0,~margin - D_E))^2`$.
+![image](https://github.com/user-attachments/assets/3ef5ec0c-10e1-473c-b878-f14cf75e0cad)
 
-Based on our experience, we decided to set margin to 0.5. This design ensures the network learns embeddings that bring similar pairs closer while pushing dissimilar pairs apart beyond the specified margin.
+Training Hyper-parameters:
 
-### Configuration
-We set batch size to 32 and did the training for 20 epochs.
+- Epochs: 20
+- Binary Cross-Entropy Loss
+- Adam Optimizer
+- Initial Learning Rate: 1e-3
+- Weight Decay: 0.0005
+- Batch Size: 32
 
-### Functions:
+
+### Code Functions:
 "SiameseDataset" class is built to load the appropriate dataset. "SiameseNetwork" is our siamese CNN network.
 
 ### Training:
 For training, we used Adam optimizer and an adaptive learning rate. It was run on GPUs using CUDA.
 Here you can see the training losses during epochs:
 
-![image](https://github.com/user-attachments/assets/361075eb-930c-4ecb-9401-1cc76e982d55)
+![image](https://github.com/user-attachments/assets/32e871c6-40fb-4723-b471-46b3acdc03ab)
 
 ### Testing:
 We use the trained model and activate the `.eval()` mode. We build the test dataset and load it. Then using a favorite threshold for contrastive loss (we used 0.1), test our model. It means for each pair, if the loss is lower than the threshold it means original pair, and for upper than threshold value we predict forgery for the pair. This threshold is adaptive and can be changed. See some examples:
