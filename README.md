@@ -30,7 +30,7 @@ To learn more about Siamese neural networks, please see [here ](https://medium.c
 
 ## Dataset:
 
-Please download the data from my Google Drive [contact me](mohammadalimir110@gmail.com). The data came from Kaggle, but it was poorly organized (There was leakage.) The dataset I have provided has addressed the issues. Pairs of forged-genuine and genuine-genuine are available in the csv files. After downloading the data, please place the folder next to the "siamese-net" folder.
+To access the data, please [contact me](mohammadalimir110@gmail.com). The data came from Kaggle, but it was poorly organized (There was leakage.) The dataset I have provided has addressed the issues. Pairs of forged-genuine and genuine-genuine are available in the csv files. After downloading the data, please place the folder next to the "siamese-net" folder.
 
 The figure below shows the structure of data.
 
